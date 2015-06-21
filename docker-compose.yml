@@ -1,0 +1,73 @@
+# MONGO
+
+mongo:
+  image: mongo:2.6
+  ports:
+   - "27017:27017"
+  volumes:
+   - "data/mongo/tmp:/shared"
+
+# MYSQL
+
+dbdata:
+  image: sameersbn/mysql:latest
+  volumes:
+    - /var/lib/mysql
+  command: true
+database:
+  image: sameersbn/mysql:latest
+  volumes:
+   - "data/mysql/tmp:/shared"
+  volumes_from:
+    - dbdata
+  ports:
+    - "33333:3306"
+  environment:
+    - DB_USER=marge
+    - DB_PASS=v3t3x2y2
+    - DB_NAME=marge_devel
+
+# REDIS
+
+redissrv:
+  image: redis
+  ports:
+    - "6370:6379"  # map locally to 6370
+
+# RABBITMQ
+
+rabbitmq:
+  image: tutum/rabbitmq
+  volumes:
+    - "data/rabbitmq/opt:/opt"    
+  ports:
+    - "15672:15672"
+    - "5672:5672"
+  environment:
+    RABBITMQ_PASS: password
+
+# ELK (Elasticsearch, Logstash and Kibana)
+# https://github.com/tiagoprn/elk_python_sandbox/
+elasticsearch:
+  image: deviantony/elk-elasticsearch
+  ports:
+    - "9200:9200"
+
+logstash:
+  image: deviantony/elk-logstash
+  volumes:
+    - "conf/logstash:/etc/logstash/conf.d"
+  ports:
+    - "5000:5000"
+    - "5555:5555/udp"
+  links:
+    - elasticsearch
+
+kibana4:
+  image: deviantony/elk-kibana
+  ports:
+    - "5601:5601"
+  links:
+    - elasticsearch
+        
+
