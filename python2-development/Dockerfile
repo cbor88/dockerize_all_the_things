@@ -2,6 +2,8 @@ FROM python:2.7.10
 
 MAINTAINER Tiago Paranhos Lima (tiago@tiagoprnl.me)
 
+ADD debian/sources.list /etc/apt/sources.list 
+
 # Update and configure the distribution
 RUN apt-get update -y && apt-get install -y locales && locale-gen en_US en_US.UTF-8
 

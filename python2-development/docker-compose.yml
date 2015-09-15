@@ -4,6 +4,7 @@ devpython:
    - "8888:8888"
   volumes:
    - .:/code
+   - ./debian/sources.list:/etc/apt/sources.list
   environment:
     DEBIAN_FRONTEND: noninteractive
     TERM: linux
