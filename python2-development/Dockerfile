@@ -3,7 +3,7 @@ FROM python:2.7.10
 MAINTAINER Tiago Paranhos Lima (tiago@tiagoprnl.me)
 
 # Update and configure the distribution
-RUN apt-get update -y && apt-get upgrade -y && locale-gen en_US en_US.UTF-8
+RUN apt-get update -y && apt-get install -y locales && locale-gen en_US en_US.UTF-8
 
 # mongodb-clients provides mongoexport
 RUN apt-get install -y pypy mongodb-clients 
