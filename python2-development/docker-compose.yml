@@ -1,0 +1,10 @@
+devpython:
+  build: .
+  ports:
+   - "8888:8888"
+  volumes:
+   - .:/code
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+    TERM: linux
+    TERMINFO: /etc/terminfo   
