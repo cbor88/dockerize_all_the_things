@@ -14,8 +14,14 @@ RUN yum groupinstall -y "Development Tools" && \
                    libxml2-devel libxslt-devel ;\
     yum clean all
 
+# For ipython (notebook)
 RUN yum install -y ncurses ncurses-devel ncurses-libs \
                    ncurses-base ncurses-term ;\
+    yum clean all
+
+# Requirements for matplotlib
+RUN yum install -y libpng libpng-devel libpng12 libpng12-devel \
+                   freetype freetype-devel ;\
     yum clean all
 
 RUN yum install -y python-devel python-virtualenv ; \
