@@ -2,27 +2,22 @@ FROM centos:7
 
 MAINTAINER Tiago Paranhos Lima (tiago@tiagoprnl.me)
 
-RUN yum update -y && yum install -y epel-release ; yum clean all 
+# Update and configure the distribution
+RUN yum upgrade -y; yum clean all
 
-RUN yum install -y ncdu wrk wrk2 siege curl wget \
-                   vim tmux links elinks tree ; \
-    yum clean all
+# mongodb-clients provides mongoexport
+RUN apt-get install -y pypy mongodb-clients 
 
-RUN yum groupinstall -y "Development Tools" && \
-    yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel \
-                   sqlite-devel readline-devel tk-devel \
-                   libxml2-devel libxslt-devel ;\
-    yum clean all
+RUN pip install --upgrade pip
 
-RUN yum install -y python-devel python-virtualenv ; \
-    yum clean all
+RUN pip install pkgconfig
 
-WORKDIR /build
+RUN pip install cython
 
-# Install pip manually, from yum I was getting an error trying to 
-# upgrade it.
-RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-RUN python get-pip.py 
+RUN pip install gevent
+
+# Prepare the environment to build monary 
+# (mongo-c-driver for performance on python):
 
 # Requirement to use "monary" (mongodb c driver python wrapper)
 RUN printf 'Installing libbson...[WAIT]'
@@ -35,12 +30,6 @@ RUN printf 'Installing mongo-c-driver...[WAIT]'
 RUN git clone https://github.com/mongodb/mongo-c-driver.git
 RUN cd mongo-c-driver && ./autogen.sh && make && make install && cd .. 
 RUN printf 'Installing mongo-c-driver...[DONE]'
-
-RUN pip install pkgconfig
-
-RUN pip install cython
-
-RUN pip install gevent
 
 # NLTK
 RUN printf 'Installing NLTK...[WAIT]'
@@ -70,4 +59,6 @@ RUN printf 'python requirements...[DONE]'
 
 WORKDIR /code
 
-
+# Cleaning up the image
+RUN (apt-get autoremove -y; \
+     apt-get clean -y)
