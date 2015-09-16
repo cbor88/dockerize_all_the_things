@@ -20,8 +20,7 @@ RUN yum install -y ncurses ncurses-devel ncurses-libs \
     yum clean all
 
 # Requirements for matplotlib
-RUN yum install -y libpng libpng-devel libpng12 libpng12-devel \
-                   freetype freetype-devel ;\
+RUN yum install -y libpng libpng-devel freetype freetype-devel ;\
     yum clean all
 
 RUN yum install -y python-devel python-virtualenv ; \
