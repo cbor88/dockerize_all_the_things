@@ -14,6 +14,10 @@ RUN yum groupinstall -y "Development Tools" && \
                    libxml2-devel libxslt-devel ;\
     yum clean all
 
+RUN yum install -y ncurses ncurses-devel ncurses-libs \
+                   ncurses-base ncurses-term ;\
+    yum clean all
+
 RUN yum install -y python-devel python-virtualenv ; \
     yum clean all
 
