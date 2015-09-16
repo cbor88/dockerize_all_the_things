@@ -17,6 +17,7 @@ RUN yum groupinstall -y "Development Tools" && \
 RUN yum install -y python-devel python-virtualenv ; \
     yum clean all
 
+RUN mkdir /build
 WORKDIR /build
 
 # Install pip manually, from yum I was getting an error trying to 
@@ -59,9 +60,7 @@ RUN pip install -U "pandas>=0.14.0"
 RUN pip install -U "scikit-learn>=0.14.0"
 
 # Install your specific project requirements:
-RUN mkdir /build
 ADD requirements* /build/
-WORKDIR /build
 
 # Install your specific python project requirements...
 RUN printf 'python requirements...[WAIT]'
