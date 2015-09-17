@@ -1,8 +1,8 @@
 devpython:
   build: .
-  command: /code/scripts/forever.sh
+  command: /code/scripts/notebookr.sh
   ports:
-   - "8888:8888"
+   - "10000:8888"
   volumes:
    - .:/code
   environment:

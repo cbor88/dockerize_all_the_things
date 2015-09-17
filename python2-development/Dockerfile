@@ -64,8 +64,9 @@ RUN pip install cython
 
 RUN pip install gevent
 
-# Install IPython 
+# Install ipython for jupyter notebooks support 
 RUN pip install -U "ipython[all]"
+RUN pip install ipywidgets
 
 # NLTK
 RUN printf 'Installing NLTK...[WAIT]'
