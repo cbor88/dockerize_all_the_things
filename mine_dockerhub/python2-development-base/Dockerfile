@@ -68,22 +68,6 @@ RUN pip install gevent
 RUN pip install -U "ipython[all]"
 RUN pip install ipywidgets
 
-# NLTK
-RUN printf 'Installing NLTK...[WAIT]'
-RUN pip install -U textblob nltk
-RUN printf 'Installing NLTK...[DONE]'
-
-# necessary for textblob to work as desired
-RUN python -m textblob.download_corpora
-
-# Install the core tools 
-RUN pip install -U  numpy
-# RUN pip install -U  scipy
-RUN pip install -U  matplotlib
-
-RUN pip install -U "pandas>=0.14.0"
-RUN pip install -U "scikit-learn>=0.14.0"
-
 # Install your specific project requirements:
 ADD requirements* /build/
 
