@@ -1,4 +1,4 @@
-devpython:
+py2datascience:
   build: .
   command: /code/scripts/notebook.sh
   ports:

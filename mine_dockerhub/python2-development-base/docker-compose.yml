@@ -1,0 +1,10 @@
+devpython2:
+  build: .
+  command: /code/scripts/forever.sh
+  ports:
+   - "10000:8888"
+  volumes:
+   - .:/code
+  environment:
+    TERM: linux
+    TERMINFO: /etc/terminfo   
