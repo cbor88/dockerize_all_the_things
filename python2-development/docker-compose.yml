@@ -1,6 +1,6 @@
 devpython:
   build: .
-  command: /code/scripts/notebookr.sh
+  command: /code/scripts/notebook.sh
   ports:
    - "10000:8888"
   volumes:
