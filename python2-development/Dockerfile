@@ -23,7 +23,7 @@ RUN yum install -y ncurses ncurses-devel ncurses-libs \
 RUN yum install -y libpng libpng-devel freetype freetype-devel ;\
     yum clean all
 
-RUN yum install -y python-devel python-virtualenv ; \
+RUN yum install -y python-devel python-virtualenv sqlite sqlite-devel; \
     yum clean all
 
 RUN yum install -y libffi libffi-devel openssl openssl-libs openssl-devel ; \
