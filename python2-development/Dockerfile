@@ -74,7 +74,10 @@ RUN python -m textblob.download_corpora
 RUN pip install -U "ipython[all]"
 
 # Install the core tools 
-RUN pip install -U  numpy scipy matplotlib
+RUN pip install -U  numpy
+RUN pip install -U  scipy
+RUN pip install -U  matplotlib
+
 RUN pip install -U "pandas>=0.14.0"
 RUN pip install -U "scikit-learn>=0.14.0"
 
