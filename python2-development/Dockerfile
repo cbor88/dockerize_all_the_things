@@ -52,6 +52,8 @@ RUN git clone https://github.com/mongodb/mongo-c-driver.git
 RUN cd mongo-c-driver && ./autogen.sh && make && make install && cd .. 
 RUN printf 'Installing mongo-c-driver...[DONE]'
 
+RUN pip install pymongo motor
+
 RUN pip install cryptography pyopenssl ndg-httpsclient pyasn1
 
 RUN pip install urllib3[secure]
@@ -62,6 +64,9 @@ RUN pip install cython
 
 RUN pip install gevent
 
+# Install IPython 
+RUN pip install -U "ipython[all]"
+
 # NLTK
 RUN printf 'Installing NLTK...[WAIT]'
 RUN pip install -U textblob nltk
@@ -69,9 +74,6 @@ RUN printf 'Installing NLTK...[DONE]'
 
 # necessary for textblob to work as desired
 RUN python -m textblob.download_corpora
-
-# Install IPython 
-RUN pip install -U "ipython[all]"
 
 # Install the core tools 
 RUN pip install -U  numpy
