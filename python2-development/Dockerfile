@@ -26,8 +26,14 @@ RUN yum install -y libpng libpng-devel freetype freetype-devel ;\
 RUN yum install -y python-devel python-virtualenv ; \
     yum clean all
 
+RUN yum install -y libffi libffi-devel openssl openssl-libs openssl-devel ; \
+    yum clean all
+
 RUN mkdir /build
 WORKDIR /build
+
+# Manually upgrade python to 2.7.10
+RUN wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz && tar xzf Python-2.7.10.tgz && cd Python-2.7.10 && ./configure && make install && cd .. && python --version
 
 # Install pip manually, from yum I was getting an error trying to 
 # upgrade it.
@@ -45,6 +51,10 @@ RUN printf 'Installing mongo-c-driver...[WAIT]'
 RUN git clone https://github.com/mongodb/mongo-c-driver.git
 RUN cd mongo-c-driver && ./autogen.sh && make && make install && cd .. 
 RUN printf 'Installing mongo-c-driver...[DONE]'
+
+RUN pip install cryptography pyopenssl ndg-httpsclient pyasn1
+
+RUN pip install urllib3[secure]
 
 RUN pip install pkgconfig
 
