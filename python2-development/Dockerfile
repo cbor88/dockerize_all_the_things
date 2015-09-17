@@ -75,7 +75,7 @@ RUN pip install -U "ipython[all]"
 
 # Install the core tools 
 RUN pip install -U  numpy
-RUN pip install -U  scipy
+# RUN pip install -U  scipy
 RUN pip install -U  matplotlib
 
 RUN pip install -U "pandas>=0.14.0"
