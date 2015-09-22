@@ -76,6 +76,9 @@ RUN printf 'python requirements...[WAIT]'
 RUN pip install -r requirements.txt
 RUN printf 'python requirements...[DONE]'
 
-WORKDIR /code
+# create a new user that the application would run as
+RUN adduser --uid 1000  appuser 
+USER appuser
 
+WORKDIR /code
 
