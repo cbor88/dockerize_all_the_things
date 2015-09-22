@@ -1,7 +1,13 @@
 help:
-	@echo -e "\nHELP:\n"
-	@echo -e " make clean \n\tDeletes the *.pyc files\n\n"
-	@echo -e " make tmux \n\tRun a tmux session.\n\n"
+	@echo -e " make clean 			- Deletes the *.pyc files"
+	@echo -e " make tmux 			- Run a tmux session."
+	@echo -e " make bash 			- Run a bash session."
+	@echo -e " make notebook 		- Start the ipython notebook."
+	@echo -e " make up 				- docker-compose up."
+	@echo -e " make rm 				- docker-compose rm."
+	@echo -e " make stop 			- docker-compose stop"
+	@echo -e " make ps 				- docker-compose ps"
+	@echo -e " make logs 			- View the app logs (logs/log.txt)."
 
 clean:
 	@echo -e "\nDeleting pyc files...\n";
@@ -32,9 +38,3 @@ bash:
 log:  
 	@tail -f logs/log.txt
 
-restart:  
-	@docker-compose stop devpython2
-	@docker-compose start devpython2
-	@tail -f logs/log.txt
-
-.PHONY: clean tmux up rm stop ps bash log restart
