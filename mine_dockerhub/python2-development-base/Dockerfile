@@ -68,6 +68,8 @@ RUN pip install gevent
 RUN pip install -U "ipython[all]"
 RUN pip install ipywidgets
 
+RUN pip install flake8 
+
 # Install your specific project requirements:
 ADD requirements* /build/
 
@@ -76,9 +78,25 @@ RUN printf 'python requirements...[WAIT]'
 RUN pip install -r requirements.txt
 RUN printf 'python requirements...[DONE]'
 
+RUN yum install ctags
+
 # create a new user that the application would run as
 RUN adduser --uid 1000  appuser 
 USER appuser
 
+WORKDIR /home/appuser
+
+RUN git clone https://github.com/tiagoprn/dot_files
+
+RUN mkdir /home/appuser/.config && \
+          ln -s /home/appuser/dot_files/flake8 /home/appuser/.config/flake8 && \
+          ln -s /home/appuser/dot_files/.vimrc /home/appuser/.vimrc && \
+          ln -s /home/appuser/dot_files/.vim /home/appuser/.vim && \
+          mkdir /home/appuser/.vim/bundle && \
+          git clone https://github.com/gmarik/vundle.git /home/appuser/.vim/bundle/vundle
+
+RUN mkdir /home/appuser/.tmux && \
+    ln -s /home/appuser/dot_files/.tmux.conf /home/appuser/.tmux.conf && \
+    git clone https://github.com/tmux-plugins/tpm /home/appuser/.tmux/plugins/tpm
 WORKDIR /code
 
