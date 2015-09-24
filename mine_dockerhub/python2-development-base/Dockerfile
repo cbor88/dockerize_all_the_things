@@ -5,7 +5,7 @@ MAINTAINER Tiago Paranhos Lima (tiago@tiagoprnl.me)
 RUN yum update -y && yum install -y epel-release ; yum clean all 
 
 RUN yum install -y ncdu wrk wrk2 siege curl wget \
-                   vim tmux links elinks tree ; \
+                   vim links elinks tree ; \
     yum clean all
 
 RUN yum groupinstall -y "Development Tools" && \
@@ -27,6 +27,9 @@ RUN yum install -y python-devel python-virtualenv sqlite sqlite-devel; \
     yum clean all
 
 RUN yum install -y libffi libffi-devel openssl openssl-libs openssl-devel ; \
+    yum clean all
+
+RUN yum install -y ctags fontconfig fontconfig-devel sudo libevent libevent-devel; \
     yum clean all
 
 RUN mkdir /build
@@ -52,6 +55,12 @@ RUN git clone https://github.com/mongodb/mongo-c-driver.git
 RUN cd mongo-c-driver && ./autogen.sh && make && make install && cd .. 
 RUN printf 'Installing mongo-c-driver...[DONE]'
 
+RUN printf 'Compiling and installing tmux...[WAIT]'
+RUN git clone  https://github.com/tmux/tmux.git
+RUN cd tmux && bash autogen.sh && ./configure && make && make install && cd ..
+RUN printf 'Compiling and installing tmux...[DONE]'
+
+
 RUN pip install pymongo motor
 
 RUN pip install cryptography pyopenssl ndg-httpsclient pyasn1
@@ -69,6 +78,10 @@ RUN pip install -U "ipython[all]"
 RUN pip install ipywidgets
 
 RUN pip install flake8 
+RUN pip install powerline-status
+
+RUN cp /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh /tmp && \
+    chmod 777 /tmp/powerline.sh
 
 # Install your specific project requirements:
 ADD requirements* /build/
@@ -78,7 +91,8 @@ RUN printf 'python requirements...[WAIT]'
 RUN pip install -r requirements.txt
 RUN printf 'python requirements...[DONE]'
 
-RUN yum install ctags
+
+
 
 # create a new user that the application would run as
 RUN adduser --uid 1000  appuser 
@@ -86,17 +100,24 @@ USER appuser
 
 WORKDIR /home/appuser
 
+RUN mkdir -p ~/.fonts ~/.config/fontconfig/conf.d && \
+    curl https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf -o ~/.fonts/PowerlineSymbols.otf && \
+    curl https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf -o ~/.config/fontconfig/conf.d/10-powerline-symbols.conf && \
+    fc-cache -r ~/.fonts
+
+# ADD .bashrc /home/appuser/.bashrc
+
 RUN git clone https://github.com/tiagoprn/dot_files
 
-RUN mkdir /home/appuser/.config && \
-          ln -s /home/appuser/dot_files/flake8 /home/appuser/.config/flake8 && \
-          ln -s /home/appuser/dot_files/.vimrc /home/appuser/.vimrc && \
-          ln -s /home/appuser/dot_files/.vim /home/appuser/.vim && \
-          mkdir /home/appuser/.vim/bundle && \
-          git clone https://github.com/gmarik/vundle.git /home/appuser/.vim/bundle/vundle
+RUN ln -s /home/appuser/dot_files/flake8 /home/appuser/.config/flake8 && \
+    ln -s /home/appuser/dot_files/.vimrc /home/appuser/.vimrc && \
+    ln -s /home/appuser/dot_files/.vim /home/appuser/.vim && \
+    mkdir /home/appuser/.vim/bundle && \
+    git clone https://github.com/gmarik/vundle.git /home/appuser/.vim/bundle/vundle
 
 RUN mkdir /home/appuser/.tmux && \
     ln -s /home/appuser/dot_files/.tmux.conf /home/appuser/.tmux.conf && \
     git clone https://github.com/tmux-plugins/tpm /home/appuser/.tmux/plugins/tpm
+
 WORKDIR /code
 
