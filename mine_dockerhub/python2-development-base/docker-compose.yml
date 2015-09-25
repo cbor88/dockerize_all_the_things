@@ -7,4 +7,6 @@ devpython2:
    - .:/code
   environment:
     TERM: xterm
-    TERMINFO: /etc/terminfo   
+    TERMINFO: /etc/terminfo
+    LC_ALL: en_US.utf8
+    LANG: en_US.utf8  
