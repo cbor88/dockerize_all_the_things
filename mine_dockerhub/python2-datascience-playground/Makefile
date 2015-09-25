@@ -15,10 +15,10 @@ clean:
 	@echo -e "\nDeleting pyc files...[DONE]\n";
 
 tmux:
-	@docker-compose run devpython2 tmux -2 new -s new-session
+	@docker-compose run py2datascience tmux -2 new -s new-session
 
 notebook:
-	@docker-compose run devpython2 ipython notebook --no-browser --ip=0.0.0.0 --port 8888
+	@docker-compose run py2datascience ipython notebook --no-browser --ip=0.0.0.0 --port 8888
 
 up:  
 	@docker-compose up -d 
@@ -33,7 +33,7 @@ ps:
 	@docker-compose ps
 
 bash:  
-	@docker-compose run devpython2 bash
+	@docker-compose run py2datascience bash
 
 log:  
 	@tail -f logs/log.txt
