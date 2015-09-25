@@ -101,8 +101,8 @@ USER appuser
 WORKDIR /home/appuser
 
 RUN mkdir -p ~/.fonts ~/.config/fontconfig/conf.d && \
-    curl https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf -o ~/.fonts/PowerlineSymbols.otf && \
-    curl https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf -o ~/.config/fontconfig/conf.d/10-powerline-symbols.conf && \
+    curl https://raw.githubusercontent.com/powerline/powerline/develop/font/PowerlineSymbols.otf -o ~/.fonts/PowerlineSymbols.otf && \
+    curl https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf -o ~/.config/fontconfig/conf.d/10-powerline-symbols.conf && \
     fc-cache -r ~/.fonts
 
 # ADD .bashrc /home/appuser/.bashrc
