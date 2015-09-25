@@ -1,3 +1,5 @@
+# python-development-base
+
 FROM centos:7
 
 MAINTAINER Tiago Paranhos Lima (tiago@tiagoprnl.me)
@@ -91,9 +93,6 @@ RUN printf 'python requirements...[WAIT]'
 RUN pip install -r requirements.txt
 RUN printf 'python requirements...[DONE]'
 
-
-
-
 # create a new user that the application would run as
 RUN adduser --uid 1000  appuser 
 USER appuser
@@ -104,8 +103,6 @@ RUN mkdir -p ~/.fonts ~/.config/fontconfig/conf.d && \
     curl https://raw.githubusercontent.com/powerline/powerline/develop/font/PowerlineSymbols.otf -o ~/.fonts/PowerlineSymbols.otf && \
     curl https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf -o ~/.config/fontconfig/conf.d/10-powerline-symbols.conf && \
     fc-cache -r ~/.fonts
-
-# ADD .bashrc /home/appuser/.bashrc
 
 RUN git clone https://github.com/tiagoprn/dot_files
 
