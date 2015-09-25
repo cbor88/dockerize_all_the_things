@@ -6,5 +6,5 @@ devpython2:
   volumes:
    - .:/code
   environment:
-    TERM: linux
+    TERM: xterm
     TERMINFO: /etc/terminfo   
