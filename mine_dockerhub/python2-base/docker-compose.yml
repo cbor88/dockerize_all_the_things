@@ -1,0 +1,12 @@
+python2base:
+  build: .
+  command: /code/scripts/forever.sh
+  ports:
+   - "10000:8888"
+  volumes:
+   - .:/code
+  environment:
+    TERM: xterm
+    TERMINFO: /etc/terminfo
+    LC_ALL: en_US.utf8
+    LANG: en_US.utf8  
