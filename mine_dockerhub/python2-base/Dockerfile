@@ -85,5 +85,11 @@ RUN mkdir /home/appuser/.tmux && \
     ln -s /home/appuser/dot_files/.tmux.conf /home/appuser/.tmux.conf && \
     git clone https://github.com/tmux-plugins/tpm /home/appuser/.tmux/plugins/tpm
 
+USER root
+
+RUN echo 'appuser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+USER appuser
+
 WORKDIR /code
 
