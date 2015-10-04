@@ -44,8 +44,8 @@ RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 RUN python get-pip.py 
 
 RUN printf 'Compiling and installing tmux...[WAIT]'
-RUN git clone  https://github.com/tmux/tmux.git
-RUN cd tmux && bash autogen.sh && ./configure && make && make install && cd ..
+RUN wget https://github.com/tmux/tmux/releases/download/2.0/tmux-2.0.tar.gz && tar xfzv tmux-2.0.tar.gz
+RUN cd tmux-2.0 && ./configure && make && make install && cd ..
 RUN printf 'Compiling and installing tmux...[DONE]'
 
 RUN pip install flake8 
