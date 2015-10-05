@@ -1,5 +1,5 @@
 # python-datascience-playground
-FROM tiagoprn/python2-development-base:v0.1
+FROM tiagoprn/python2-development-base:v0.2
 
 MAINTAINER Tiago Paranhos Lima (tiago@tiagoprnl.me)
 
